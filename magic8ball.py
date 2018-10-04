@@ -1,6 +1,9 @@
 # created by Steve Pomeroy https://hackaday.io/xxv
 # modified by Drew Fustini to run once and exit
 #
+# blog post:
+# http://blog.oshpark.com/2018/10/04/open-hardware-summit-badge-magic-8-ball-app/
+#
 # photo gallery:
 # https://photos.app.goo.gl/f1y8PSHfYAaa4xTu7
 #
