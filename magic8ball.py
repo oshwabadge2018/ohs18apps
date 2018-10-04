@@ -1,6 +1,11 @@
 # created by Steve Pomeroy https://hackaday.io/xxv
 # modified by Drew Fustini to run once and exit
-# photo gallery: https://photos.app.goo.gl/f1y8PSHfYAaa4xTu7
+#
+# photo gallery:
+# https://photos.app.goo.gl/f1y8PSHfYAaa4xTu7
+#
+# transfer to Open Hardware Summit badge using FTP:
+# https://oshwabadge2018.github.io/docs.html#uploading-over-ftp
 
 import gxgde0213b1
 import font16
