@@ -31,8 +31,6 @@ class TouchButton(object):
         self._pressed = False
 
     def read(self):
-        v = self._touchpad.read()
-        print("v: {}, down_ms {}, pressed {}".format(v, self._down_ms, self._pressed))
         if self._touchpad.read() < self._threshold:
             if not self._pressed:
                 if not self._down_ms:
@@ -101,8 +99,6 @@ def main():
         orientation = get_orientation(i2c)
 
         if orientation and orientation != prev_orientation:
-            print('new orientation {}'.format(orientation))
-
             if orientation == 'upright':
                 show_message(urandom.choice(phrases))
             elif orientation == 'prone':
