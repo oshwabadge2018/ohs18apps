@@ -21,6 +21,31 @@ from ohsbadge import epd
 from ohsbadge import fb
 
 
+class TouchButton(object):
+    def __init__(self, pin, on_pressed, threshold=400, debounce_ms=50):
+        self._touchpad = TouchPad(pin)
+        self._on_pressed = on_pressed
+        self._threshold = threshold
+        self._debounce_ms = debounce_ms
+        self._down_ms = None
+        self._pressed = False
+
+    def read(self):
+        v = self._touchpad.read()
+        print("v: {}, down_ms {}, pressed {}".format(v, self._down_ms, self._pressed))
+        if self._touchpad.read() < self._threshold:
+            if not self._pressed:
+                if not self._down_ms:
+                    self._down_ms = time.ticks_ms()
+                else:
+                    if time.ticks_diff(time.ticks_ms(), self._down_ms) > self._debounce_ms:
+                        self._on_pressed()
+                        self._pressed = True
+        else:
+            self._pressed = False
+            self._down_ms = None
+
+
 def clear_screen():
     epd.initPart()
     epd.clear_frame(fb)
@@ -52,6 +77,7 @@ def get_orientation(i2c):
 
     return new_orientation
 
+
 def main():
     phrases = ["It is certain.", "It is decidedly so.", "Without a doubt.", "Yes - definitely.", "You may rely on it.", "As I see it, yes.", "Most likely.", "Outlook good.", "Yes.", "Signs point to yes.", "Reply hazy, try again", "Ask again later.", "Better not tell you now.", "Cannot predict now.", "Concentrate and ask again.", "Don't count on it.", "My reply is no.", "My sources say no.", "Outlook not so good.", "Very doubtful."]
     i2c = I2C(scl=Pin(22), sda=Pin(21))
@@ -63,7 +89,15 @@ def main():
 
     prev_orientation = None
 
-    while True:
+    keep_on = [True]
+
+    def exit_loop():
+        keep_on[0] = False
+
+    exit_button = TouchButton(Pin(32), exit_loop)
+
+    while keep_on[0]:
+        exit_button.read()
         orientation = get_orientation(i2c)
 
         if orientation and orientation != prev_orientation:
