@@ -1,3 +1,17 @@
+# MicroPython demo for accelerometer on Open Hardware Summit badge
+#
+# WARNING: Make sure that R12 and R13 are populated
+#
+# R12 and R13 are 2.2K Ohm resistors for the I2C bus.
+# This is needed for the accelerometer to work.
+# If R12 or R13 are missing, then email: drew@oshpark.com
+#
+# Blog post:
+# http://blog.oshpark.com/2018/10/18/open-hardware-summit-badge-accelerometer-demo/
+# 
+# Photo gallery:
+# https://photos.app.goo.gl/SKBWbUtKghszr9Ns5
+
 import gxgde0213b1
 import font16
 import font12
